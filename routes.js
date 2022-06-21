@@ -10,7 +10,7 @@ const requestHandler = (req,res)=>{
         res.write('</html>');
         return res.end();
     }
-    
+
     if (url === '/message' && method === 'POST'){
         const body = [];
         req.on('data',(chunk)=>{
@@ -19,7 +19,7 @@ const requestHandler = (req,res)=>{
         })
         return req.on('end',()=>{
             const parseBody = Buffer.concat(body).toString();
-            const message = parseBody.split('=')[1];
+            const message = parseBody.split('=')[0];
             fs.writeFile('message.txt',message, err=>{
                 res.statusCode = 302;
                 res.setHeader('Location','/');
