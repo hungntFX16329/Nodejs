@@ -19,9 +19,8 @@ app.use(express.static(path.join(__dirname,'public')))
 app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next)=>{
-    res.status(404).render('404',{pageTitle:'Page not found'})
-})
+const errorController = require('./controllers/error')
+app.use(errorController.get404)
 
 const server = http.createServer(app)
 server.listen(3000);
