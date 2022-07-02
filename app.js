@@ -51,7 +51,7 @@ sequelize
     return user;
 })
 .then(user => {
-    console.log(user);
+    //console.log(user);
     app.listen(3000);
 })
 .catch(err => console.log(err))
