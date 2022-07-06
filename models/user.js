@@ -13,8 +13,8 @@ const userSchema = new Schema({
     },
     cart: {
         items: [{
-            productId: {type: Schema.Types.ObjectId,require: true},
-            quantity:{type: Number,require:true}
+            productId: { type: Schema.Types.ObjectId,ref: 'Product',require: true},
+            quantity: { type: Number,require:true}
         }],
     }
 })
