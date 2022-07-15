@@ -40,7 +40,7 @@
       <% if( user.annualLeave > 0) {%>
       <div class="container mt-3">
         <form action="/absence" method="POST">
-          <div class="select-type">
+          <div>
             <div class="form-group">
               <label for="day-selected">Theo ngày</label>
               <input type="radio" id="day-selected" name="type" value="1" checked />
@@ -51,7 +51,7 @@
             </div>
           </div>
           <input type="checkbox" name="select-day" id="select-days" checked />
-          <div class="mb-3 form-group hours">
+          <div class="mb-3 form-group hours form">
             <label for="date">Chọn ngày nghỉ</label>
             <input
               type="date"
@@ -61,7 +61,7 @@
               autocomplete="off"
             />
           </div>
-          <div class="mb-3 form-group hours">
+          <div class="mb-3 form-group hours form">
             <label for="hours">Số giờ nghỉ</label>
             <input
               type="number"
@@ -74,11 +74,11 @@
               autocomplete="off"
             />
           </div>
-          <div class="mb-3 form-group dates">
+          <div class="mb-3 form-group dates form">
             <label for="dates">Chọn những ngày nghỉ</label>
             <input id="dates" name="dates" autocomplete="off" />
           </div>
-          <div class="form-group">
+          <div class="form-group form">
             <label for="reason">Lý do</label>
             <textarea
               class="form-control"
