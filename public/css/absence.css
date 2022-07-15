@@ -1,0 +1,76 @@
+h1 {
+    margin-bottom: 50px;
+}
+
+.absence-select {
+    max-width: 600px;
+    text-align: left;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 6px 12px;
+    border: 1px solid currentColor;
+    outline: none;
+}
+
+.absence-select button {
+    width: 100%;
+    padding: 6px 12px;
+    border: 1px solid cu;
+    outline: none;
+    background-color:#3748e6f3;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.absence-select button:hover {
+    background-color: #3748e6f3;
+}
+
+.select-type .form-group {
+    display: flex;
+    align-items: center;
+}
+
+.select-type label {
+    cursor: pointer;
+    flex: 2;
+}
+
+.select-type input {
+    flex: 1;
+    cursor: pointer;
+}
+
+.select-type {
+    margin-bottom: 30px;
+}
+
+.dates {
+    display: none;
+}
+
+input#select-days:checked ~ .dates {
+    display: block;
+}
+
+input#select-days:checked ~ .hours {
+    display: none;
+}
+
+#select-days {
+    display: none;
+}
+
+.right-container {
+    justify-content: flex-start;
+}

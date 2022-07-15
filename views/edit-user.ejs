@@ -1,0 +1,48 @@
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+</head>  
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+        <form class="mb-3 mt-3" action="/<%if(editing){ %>edit-user<%}else{%>users<%}%>" method="post">
+            <div class="mb-3">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" name="name" disabled value="<%= user.name %>">
+            </div>
+            <div class="mb-3">
+                <label for="_id">ID</label>
+                <input class="form-control" type="text" name="_id" disabled value="<% if (editing) { %><%= user._id %><% } %>">
+            </div>
+            <div class="mb-3">
+                <label for="doB">doB</label>
+                <input class="form-control" type="text" name="doB" disabled value="<% if (editing) { %><%= user.doB.toLocaleDateString() %><% } %>">
+            </div>
+            <div class="mb-3">
+                <label for="salaryScale">SalaryScale</label>
+                <input class="form-control" type="number" name="salaryScale" disabled value="<% if (editing) { %><%= user.salaryScale %><% } %>">
+            </div>
+            <div class="mb-3">
+                <label for="startDate">startDate</label>
+                <% const startDate  = new Date(user.startDate) %>
+                <input class="form-control" type="text" name="startDate" disabled value="<% if (editing) { %><%= startDate.getDate() %>/<%= startDate.getMonth() %>/<%= startDate.getFullYear() %><% } %>">
+            </div>
+            <div class="mb-3">
+                <label for="department">Department</label>
+                <input class="form-control" type="text" name="department" disabled value="<% if (editing) { %><%= user.department %><% } %>">
+            </div>
+            <div class="mb-3">
+                <label for="annualLeave">annualLeave</label>
+                <input class="form-control" type="text" name="annualLeave" disabled value="<% if (editing) { %><%= user.annualLeave %><% } %>">
+            </div>
+            <div class="mb-3">
+                <label for="image">Image</label>
+                <input class="form-control" type="text" name="image" value="<% if (editing) { %><%= user.image %><% } %>">
+            </div>
+            <% if(editing) { %>
+                <input type="hidden" name="userId" value="<%= user._id %>">
+            <%} %>
+            <br>
+            <button class="btn btn-primary" type="submit"><%if(editing){ %>Update User<%}else{%>Add User<%}%> </button>
+        </form>
+</div>
+<%- include('includes/end.ejs') %>

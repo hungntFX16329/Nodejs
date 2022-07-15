@@ -1,0 +1,48 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <h1>Thông tin điểm danh</h1>
+    <br>
+    <h3><span class="badge bg-secondary">Ngày bắt đầu công việc: <%= attendance.date %></span></h3>
+    <br>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nơi làm việc</th>
+                    <th>Giờ bắt đầu</th>
+                    <th>Giờ kết thúc</th>
+                    <th>Thời gian làm việc</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% attendance.details.forEach(i => { %>
+                    <tr>
+                        <td><%= i.workplace %></td>
+                        <td><%= i.startTime.toLocaleTimeString() %></td>
+                        <% if(i.endTime) { %>
+                            <td><%= i.endTime.toLocaleTimeString() %></td>
+                            <td><%= ((i.endTime - i.startTime)/(3600 * 1000)).toFixed(2) %></td>
+                        <% }else { %>
+                            <td>--</td>
+                            <td>--</td>
+                        <%} %>
+                    </tr>
+                <% }) %>
+                <% if(attendance.details[0].endTime){ %>
+                    <tr>
+                        <% const totalTime = attendance.details.reduce((total, detail) => {return total + ((detail.endTime - detail.startTime))/(3600 *1000)},0) %>
+                        <td>Tổng thời gian làm việc hôm nay là: <%= totalTime.toFixed(2) %> giờ</td>
+                    </tr>
+                <% }else { %>
+                    <tr>
+                        <td>Chưa kết thúc công việc</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%- include('includes/end.ejs') %>

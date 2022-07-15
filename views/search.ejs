@@ -1,0 +1,101 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/search.css">
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <h1>Thống kê dữ liệu giờ làm</h1>
+    <div class="wildcard-container">
+        <form id="wildcard" action="/statistic-search" method="GET">
+            <label for="date">Tìm kiếm theo:</label>
+            <select name="type" id="field">
+                <option value="date">Ngày/Tháng/Năm</option>
+            </select>
+            <input type="text" name="search" id="search">
+            <input type="submit" value="Tìm">
+        </form>
+    </div>
+
+    <div>
+        <% if (type == 'salary' && statistics.length == 0){ %>
+            <h2>Không có dữ liệu</h2>
+        <% }else{ %>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Ngày</th>
+                        <th>Nơi làm việc</th>
+                        <th>Giờ bắt đầu</th>
+                        <th>Giờ kết thúc</th>
+                        <th>Thời gian làm việc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% statistics.forEach(item => { %>
+                        <% if(item.attend && item.details.length > 1){ %>
+                            <tr>
+                                <td rowspan="<%= item.details.length + 1 %>"><%= item.date %></td>
+                                <td><%= item.details[0].workplace %></td>
+                                <td><%= item.details[0].startTime.toLocaleTimeString() %></td>
+                                <% if(item.details[0].endTime) { %>
+                                    <td><%= item.details[0].endTime.toLocaleTimeString() %></td>
+                                    <td><%= ((item.details[0].endTime - item.details[0].startTime)/(3600 * 1000)).toFixed(2) %></td>
+                                <% }else { %>
+                                    <td>--</td>
+                                    <td>--</td>
+                                <%} %>
+                            </tr>
+                            <% item.details.forEach((detail,index) => { %>
+                                <% if(index !== 0){ %>
+                                    <tr>
+                                        <td><%= detail.workplace %></td>
+                                        <td><%= detail.startTime.toLocaleTimeString() %></td>
+                                        <% if(detail.endTime) { %>
+                                            <td><%= detail.endTime.toLocaleTimeString() %></td>
+                                            <td><%= ((detail.endTime - detail.startTime)/(3600 * 1000)).toFixed(2) %></td>
+                                        <% }else { %>
+                                            <td>--</td>
+                                            <td>--</td>
+                                        <%} %>
+                                    </tr>
+                                <% } %>
+                            <% }) %>
+                            <% if(item.details[0].endTime){%>
+                                <% const totalTime = item.details.reduce((total, detail) => {
+                                    return total + ((detail.endTime - detail.startTime)/(3600 * 1000))}, 0).toFixed(2) %>
+
+                                <tr class="total">
+                                    <% if(totalTime > 8) { %>
+                                        <td colspan="2">Giờ làm thêm: <%= (totalTime - 8).toFixed(2) %> giờ</td>
+                                    <% }else { %>
+                                        <td colspan="2">Giờ làm thiếu: <%= (8 - totalTime).toFixed(2) %> giờ</td>
+                                    <% } %>
+                                    <td colspan="2">Tổng giờ làm: <%= totalTime %> giờ</td>
+                                </tr>
+                            <%} else{ %>
+                               
+                                <tr class="total">
+                                    <td colspan="4">Chưa kết thúc</td>
+                                </tr>
+                            <% }%>
+        
+                        <% }else { %>
+                            <tr>
+                                <td><%= item.date %></td>
+                                <td class="warning">Nghỉ phép</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <% } %> 
+                    <% }) %>
+                </tbody>
+            </table>
+        <%} %>
+    </div>
+    <% if(type == 'salary' && statistics.length > 0){ %>
+        <p>Thời gian làm thêm: <%= statistics.overTime.toFixed(2) %> giờ - Thời gian làm thiếu: <%= statistics.underTime.toFixed(2) %> giờ</p>
+        <h3><span class="badge bg-secondary">Tiền lương: <%= statistics.salary %></span></h3>
+    <% } %>
+</div>
+<%- include('includes/end.ejs') %>

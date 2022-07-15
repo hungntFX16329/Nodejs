@@ -1,0 +1,74 @@
+.right-container {
+    justify-content: flex-start;
+}
+
+h1{
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.wildcard-container {
+    margin-top: 20px;
+}
+
+.wildcard-container input {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.wildcard-container select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.wildcard-container p {
+    text-align: left;
+}
+
+input[type="submit"]{
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    outline: none;
+    background-color: #3748e6f3;
+    color: white;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #3748e6f3;
+}
+
+.wrapper {
+    width: 80%;
+    margin: 0;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+table {
+    margin: 0;
+    width: 80%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+.warning {
+    background-color: #dfdc23;
+}
+
+tr.total {
+    font-weight: bold;
+    background-color: #f5f5f5;
+}

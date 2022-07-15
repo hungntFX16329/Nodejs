@@ -1,0 +1,77 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <h1>Thông tin Covid cá nhân</h1>
+    <!-- <h3><%= user.name %></h3> -->
+    <br>
+    <div>
+        <section>
+            <h3>Nhiệt độ cơ thể</h3>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ngày đăng ký</th>
+                            <th>Nhiệt độ cơ thể</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% covid.bodyTemperatures.forEach(i => { %>
+                            <tr>
+                                <% const time = new Date(i.date) %>
+                                <td><%= i.date.toLocaleDateString() %>: <%= time.getHours() %>:<%= time.getMinutes() %></td>
+                                <td><%= i.value %><sup>o</sup>C</td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+        </section>
+        <section>
+            <h3>Dương tính Covid</h3>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ngày dương tính</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% covid.positive.forEach(i => { %>
+                            <tr>
+                                <td><%= i.date.toLocaleDateString() %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section>
+            <h3>Tiêm vaccine</h3>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ngày tiêm</th>
+                            <th>Loại mũi vaccine</th>
+                            <th>Tên vaccine</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% covid.vaccine.forEach((i, index) => { %>
+                            <% if(i.name) { %>
+                                <tr>
+                                    <td><%= i.date.toLocaleDateString() %></td>
+                                    <td>Mũi <%= (index + 1) %></td>
+                                    <td><%= i.name %></td>
+                                </tr>
+                            <% } %>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+<%- include('includes/end.ejs') %>

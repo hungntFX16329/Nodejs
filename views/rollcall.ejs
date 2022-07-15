@@ -1,0 +1,35 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <% if(!user.isWorking){ %>
+        <div class="start">
+            <h1>Bắt đầu công việc</h1>
+                <label for="name">Xin chào</label>
+                <input type="text" name="name" disabled value="<%= user.name %>">
+            <form action="/rollcall?type=start" method="POST">
+                <div class="mb-3 mt-3">
+                <label>Chọn địa điểm làm việc: </label>
+                <select name="workplace" id="workplace" required>
+                    <option value="Công ty">Công Ty</option>
+                    <option value="Nhà">Nhà</option>
+                    <option value="Khách Hàng">Khách Hàng</option>
+                </select>
+                <input type="submit" class="btn btn-primary" value="Bắt đầu điểm danh">
+                </div>
+            </form>
+        </div>
+        <div>
+            <a href="/absence" class="btn btn-primary">Đăng ký nghỉ phép ở đây</a>
+        </div>
+    <% } else { %>
+        <div class="stop">
+            <h1>Kết thúc công việc</h1>
+            <form action="/rollcall?type=stop" method="POST">
+                <input type="submit" class="btn btn-primary" value="Kết thúc">
+            </form>
+        </div>
+    <% } %>
+</div>
+<%- include('includes/end.ejs') %>
