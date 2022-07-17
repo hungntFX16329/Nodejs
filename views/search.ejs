@@ -84,14 +84,14 @@
                                 <td><%= item.details[0].startTime.toLocaleTimeString() %></td>
                                 <% if(item.details[0].endTime) { %>
                                     <td><%= item.details[0].endTime.toLocaleTimeString() %></td>
-                                    <td><%= ((item.details[0].endTime - item.details[0].startTime)/(3600 * 1000)).toFixed(1) %></td>
+                                    <td><%= ((item.details[0].endTime - item.details[0].startTime)/(3600 * 1000)).toFixed(2) %></td>
                                 <% }else { %>
                                     <td>--</td>
                                     <td>--</td>
                                 <%} %>
                             </tr>
                             <% if(item.details[0].endTime){ %>
-                                <% const totalTime = ((item.details[0].endTime - item.details[0].startTime)/(3600 * 1000)).toFixed(1) %>
+                                <% const totalTime = ((item.details[0].endTime - item.details[0].startTime)/(3600 * 1000)).toFixed(2) %>
                                 <tr class="total">
                                     <% if(totalTime > 8) { %>
                                         <td colspan="2">Giờ làm thêm: <%= (totalTime - 8).toFixed(2) %> giờ</td>
