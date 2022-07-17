@@ -1,5 +1,10 @@
 h1 {
+    text-transform: uppercase;
     margin-bottom: 50px;
+}
+
+h3 {
+    font-weight: 400;
 }
 
 .absence-select {
@@ -15,10 +20,16 @@ h1 {
 }
 
 .form-group input {
-    width: 100%;
-    padding: 6px 12px;
-    border: 1px solid currentColor;
-    outline: none;
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+    display: block;
+}
+.form-group textarea {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+    display: block;
 }
 
 .absence-select button {
@@ -36,6 +47,23 @@ h1 {
     background-color: #3748e6f3;
 }
 
+.select-type .form-group {
+    align-items: center;
+}
+
+.select-type label {
+    cursor: pointer;
+    flex: 2;
+}
+
+.select-type input {
+    flex: 1;
+    cursor: pointer;
+}
+
+.select-type {
+    margin-bottom: 30px;
+}
 
 .dates {
     display: none;
@@ -51,14 +79,4 @@ input#select-days:checked ~ .hours {
 
 #select-days {
     display: none;
-}
-
-.right-container {
-    justify-content: flex-start;
-}
-.form {
-    width: 20rem;
-    max-width: 90%;
-    margin: auto;
-    display: block;
 }

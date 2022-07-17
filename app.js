@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname,'public')));
 // Khởi tạo 1 middleware nhằm để sử dụng 
 // các thuộc tính và phương thức với user thông qua req.user
 app.use((req, res, next) => {
-    User.findById('62ca56b1788b402417cd7e42')
+    User.findById('62d38bf8887bde6b390cef33')
       .then(user => {
         req.user = user;
         next();

@@ -63,7 +63,6 @@
                             <% if(item.details[0].endTime){%>
                                 <% const totalTime = item.details.reduce((total, detail) => {
                                     return total + ((detail.endTime - detail.startTime)/(3600 * 1000))}, 0).toFixed(2) %>
-
                                 <tr class="total">
                                     <% if(totalTime > 8) { %>
                                         <td colspan="2">Giờ làm thêm: <%= (totalTime - 8).toFixed(2) %> giờ</td>
@@ -73,12 +72,39 @@
                                     <td colspan="2">Tổng giờ làm: <%= totalTime %> giờ</td>
                                 </tr>
                             <%} else{ %>
-                               
                                 <tr class="total">
                                     <td colspan="4">Chưa kết thúc</td>
                                 </tr>
                             <% }%>
         
+                        <% }else if(item.attend){ %>
+                            <tr>
+                                <td rowspan="2"><%= item.date %></td>
+                                <td><%= item.details[0].workplace %></td>
+                                <td><%= item.details[0].startTime.toLocaleTimeString() %></td>
+                                <% if(item.details[0].endTime) { %>
+                                    <td><%= item.details[0].endTime.toLocaleTimeString() %></td>
+                                    <td><%= ((item.details[0].endTime - item.details[0].startTime)/(3600 * 1000)).toFixed(1) %></td>
+                                <% }else { %>
+                                    <td>--</td>
+                                    <td>--</td>
+                                <%} %>
+                            </tr>
+                            <% if(item.details[0].endTime){ %>
+                                <% const totalTime = ((item.details[0].endTime - item.details[0].startTime)/(3600 * 1000)).toFixed(1) %>
+                                <tr class="total">
+                                    <% if(totalTime > 8) { %>
+                                        <td colspan="2">Giờ làm thêm: <%= (totalTime - 8).toFixed(2) %> giờ</td>
+                                    <% }else { %>
+                                        <td colspan="2">Giờ làm thiếu: <%= (8 - totalTime).toFixed(2) %> giờ</td>
+                                    <% } %>
+                                    <td colspan="2">Tổng giờ làm: <%= totalTime %> giờ</td>
+                                </tr>
+                            <% } else {%>
+                                <tr class="total">
+                                    <td colspan="4">Chưa kết thúc</td>
+                                </tr>
+                            <% } %>
                         <% }else { %>
                             <tr>
                                 <td><%= item.date %></td>
