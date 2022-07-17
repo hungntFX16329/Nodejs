@@ -64,10 +64,6 @@ th, td {
     padding: 10px;
 }
 
-.warning {
-    background-color: #dfdc23;
-}
-
 tr.total {
     font-weight: bold;
     background-color: #f5f5f5;

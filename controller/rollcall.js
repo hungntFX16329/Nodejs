@@ -10,6 +10,9 @@ exports.getRollcall = (req,res,next) => {
 // Tạo phương thức để render ra trang chi tiết điểm danh
 exports.getRollCallDetails = (req, res, next) => {
   req.user.getRollCallDetails().then(attendance => {
+    if(!attendance){
+      res.redirect('/')
+    }
     res.render('rollcall-details', {
       pageTitle: 'Chi tiết công việc',
       user: req.user,

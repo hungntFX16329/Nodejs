@@ -65,7 +65,7 @@ mongoose
                     salaryScale: 1,
                     startDate: new Date("2022-07-10"),
                     department: "Phòng tạp vụ",
-                    annualLeave: 5,
+                    annualLeave: 10,
                     image: "https://i.pinimg.com/1200x/1f/cc/bd/1fccbd12e2b6ec8b3a64f1ac901fcd7e.jpg",
                   });
                 user.save();
