@@ -14,5 +14,9 @@ h1 {
     font-family: 'Bungee Shade', cursive;
 }
 
-
+.form-control.formstyle {
+  width: 30rem;
+  margin: auto;
+  display: block;
+}
 
