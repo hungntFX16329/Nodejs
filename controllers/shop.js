@@ -57,6 +57,8 @@ exports.getIndex = (req, res, next) => {
         csrfToken: req.csrfToken()
       });
     })
+
+    
     .catch(err => {
       const error = new Error(err);
       error.httpStatusCode = 500;
