@@ -34,18 +34,29 @@ absenceSchema.statics.addAbsence = function (
     const dateArr = dates.split(",");
     const newAbsence = [];
     dateArr.forEach((date) => {
+      const today = new Date(date);
+      const yyyy = today.getFullYear();
+      let mm = today.getMonth() + 1; // Months start at 0!
+      let dd = today.getDate();
+      const formattedToday = dd + '/' + mm + '/' + yyyy;
+
       newAbsence.push({
         userId: userId,
-        date: new Date(date),
+        date: formattedToday,
         days: 1,
         reason: reason,
       });
     });
     return this.insertMany(newAbsence);
   } else if (type == 0) {
+    const today = new Date(date);
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    const formattedToday = dd + '/' + mm + '/' + yyyy;
     const newAbsence = {
       userId: userId,
-      date: new Date(date),
+      date: formattedToday,
       days: hours / 8,
       reason: reason,
     };
