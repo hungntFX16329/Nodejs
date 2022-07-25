@@ -26,7 +26,7 @@ const fileStore = multer.diskStorage({
     cb(null,'images')
   } ,
   filename: (req,file,cb) =>{
-    cb(null, new Date().toISOString()+ '-' + file.originalname)
+    cb(null, file.originalname)
   }
 });
 
@@ -105,7 +105,7 @@ mongoose
                     startDate: new Date("2022-07-10"),
                     department: "Phòng tạp vụ",
                     annualLeave: 10,
-                    image: "images/2022-07-25T07:26:09.675Z-1fccbd12e2b6ec8b3a64f1ac901fcd7e.jpg",
+                    image: "images/awesome beautiful girl image for profile picture.jpg",
                   });
                 user.save();
             }
