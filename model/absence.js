@@ -38,7 +38,7 @@ absenceSchema.statics.addAbsence = function (
       const yyyy = today.getFullYear();
       let mm = today.getMonth() + 1; // Months start at 0!
       let dd = today.getDate();
-      const formattedToday = dd + '/' + mm + '/' + yyyy;
+      let formattedToday = dd + '/' + mm + '/' + yyyy;
 
       newAbsence.push({
         userId: userId,
@@ -53,7 +53,7 @@ absenceSchema.statics.addAbsence = function (
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
     let dd = today.getDate();
-    const formattedToday = dd + '/' + mm + '/' + yyyy;
+    let formattedToday = dd + '/' + mm + '/' + yyyy;
     const newAbsence = {
       userId: userId,
       date: formattedToday,
