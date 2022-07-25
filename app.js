@@ -110,10 +110,10 @@ mongoose
                 user.save();
             }
         })
-        .then((a) => {
-          app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
-            console.log("Connect with mongoBD");
-          });
-        });
+    .then((a) => {
+      app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
+        console.log("Connect with mongoBD");
+      });
+    });
     })
     .catch(err=>console.log(err))
