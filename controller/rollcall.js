@@ -13,10 +13,19 @@ exports.getRollCallDetails = (req, res, next) => {
     if(!attendance){
       res.redirect('/')
     }
-    let today = new Date().toLocaleDateString();
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '/' + mm + '/' + yyyy;
+    // let today = new Date().toLocaleDateString();
     let rollCallToday = [];
     attendance.filter(i=>{
-      if(i.date  === today){
+      if(i.date  === formattedToday){
         rollCallToday.push(i);
       }
     })
