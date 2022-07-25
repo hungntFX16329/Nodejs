@@ -5,10 +5,10 @@
     <ul class="navbar-nav">
       <% if (isAuthenticated){ %>
       <li class="nav-item">
-        <a class="nav-link <%= path === '/' ? 'active' : '' %>" href="/">Trang chủ</a>
+        <a class="nav-link <%= path === '/' ? 'active' : '' %>" href="/">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= path === '/user' ? 'active' : '' %>" href="/user">Xem/Sửa thông tin</a> 
+        <a class="nav-link <%= path === '/user' ? 'active' : '' %>" href="/user">Xem/Sửa</a> 
       </li>
       <li class="nav-item">
         <a class="nav-link <%= path === '/rollcall' ? 'active' : '' %>" href="/rollcall">Điểm danh/Kết thúc</a> 
@@ -23,7 +23,7 @@
         <a class="nav-link <%= path === '/rollcall-details' ? 'active' : '' %>" href="/rollcall-details">Chi tiết điểm danh</a> 
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= path === '/covid' ? 'active' : '' %>" href="/covid">Thông tin Covid</a> 
+        <a class="nav-link <%= path === '/covid' ? 'active' : '' %>" href="/covid">Covid</a> 
       </li>
       <li class="nav-item">
         <a class="nav-link <%= path === '/confirm' ? 'active' : '' %>" href="/confirm">Xác nhận dữ liệu</a> 
