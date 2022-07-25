@@ -105,7 +105,7 @@ mongoose
                     startDate: new Date("2022-07-10"),
                     department: "Phòng tạp vụ",
                     annualLeave: 10,
-                    image: "images/2022-07-22T11:13:39.335Z-1fccbd12e2b6ec8b3a64f1ac901fcd7e.jpg",
+                    image: "images/2022-07-25T07:26:09.675Z-1fccbd12e2b6ec8b3a64f1ac901fcd7e.jpg",
                   });
                 user.save();
             }
