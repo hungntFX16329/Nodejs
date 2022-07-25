@@ -1,0 +1,139 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/search.css">
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <h1>Thống kê dữ liệu giờ làm</h1>
+    <div class="wildcard-container">
+        <form id="wildcard" action="/statistic-search" method="GET">
+            <label for="date">Tìm kiếm theo:</label>
+            <select name="type" id="field">
+                <option value="date">Ngày/Tháng/Năm</option>
+            </select>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="text" name="search" id="search">
+            <input type="submit" value="Tìm">
+        </form>
+    </div>
+    <h5>Manager name : <%= user.name %></h5>
+    <i>Manager id : <%= user._id %></i>
+    <br>
+    <form action="/statistic-search-month" method="GET">
+        <label for="month">Bạn muốn tìm lương tháng: </label>
+        <select name="month">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
+        <button class="btn btn-outline-dark btn-sm" type="submit">Tìm</button>
+    </form>
+    <form action="/search" method="GET">
+        <label for="rows">Bạn muốn hiển thị trang với số dòng là: </label>
+        <select name="rows">
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+        </select>
+        <button class="btn btn-outline-dark btn-sm" type="submit">Tìm</button>
+    </form>
+    <div>
+        <% if (type == 'salary' && statistics.length == 0){ %>
+            <h2>Không có dữ liệu</h2>
+        <% }else{ %>
+            <% if(mon !== null && statistics.length > 0){ %>
+                <br>
+                <h3><span class="badge bg-secondary">Bảng lương tháng <%=mon%></span></h3>
+            <% } %> 
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Ngày</th>
+                        <th>Nơi làm việc</th>
+                        <th>Giờ bắt đầu</th>
+                        <th>Giờ kết thúc</th>
+                        <th>Thời gian làm việc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% statistics.forEach(i => { %>
+                        <% if(i.attend){ %>
+                            <tr>
+                                <td><%= i.date %></td>
+                                <td><%= i.workplace %></td>
+                                <td><%= i.startTime.toLocaleTimeString() %></td>
+                                <% if(i.endTime) { %>
+                                    <td><%= i.endTime.toLocaleTimeString() %></td>
+                                    <td><%= ((i.endTime - i.startTime)/(3600 * 1000)).toFixed(2) %></td>
+                                <% }else { %>
+                                    <td>--</td>
+                                    <td>--</td>
+                                <%} %>
+                            </tr>
+                            
+            
+                        <% }else { %>
+                            <tr>
+                                <td><%= i.date %></td>
+                                <td>Bạn đã xin nghỉ phép <%= i.days * 8 %> giờ</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <% } %> 
+                    <% }) %>
+                    <% if(mon !== null && statistics.length > 0){ %>
+                    <tr class="total">
+                        <% if(totalTime > 8) { %>
+                            <td colspan="2">Giờ làm thêm: <%= (totalTime - 8).toFixed(2) %> giờ</td>
+                        <% }else { %>
+                            <td colspan="2">Giờ làm thiếu: <%= (8 - totalTime).toFixed(2) %> giờ</td>
+                        <% } %>
+                        <td colspan="3">Tổng giờ làm: <%= totalTime.toFixed(2) %> giờ</td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <% if(mon !== null){ %>
+                <% if(statistics.length > 0){ %>
+                    <h3><span class="badge bg-secondary">Tiền lương của tháng <%=mon%> là : <%= sal %></span></h3>
+                <% } else { %>
+                    <h5>Không có dữ liệu để hiển thị</h5>
+                <% } %>
+            <% } %>
+        <%} %>
+    </div>
+    
+    <% if(type == 'salary' && statistics.length > 0){ %>
+        <h5>Thời gian làm thêm: <%= statistics.overTime.toFixed(2) %> giờ - Thời gian làm thiếu: <%= statistics.underTime.toFixed(2) %> giờ</h5>
+    <% } %>
+    <% if(pagination && statistics.length > 0){ %>
+    <nav>
+    <ul class="pagination justify-content-center">
+        <% if(currentPage !==1 && previousPage !==1) { %>
+            <li class="page-item"><a class="page-link" href="/search/?page=1">1</a></li>
+        <% } %>
+        <% if(hasPreviousPage){ %>
+            <li class="page-item"><a class="page-link" href="/search/?page=<%= previousPage %>"><%= previousPage %></a></li> 
+        <% } %>
+        <li class="page-item"><a class="page-link active" href="/search/?page=<%= currentPage %>"><%= currentPage %></a></li>
+        <% if(hasNextPage){ %>
+            <li class="page-item"><a class="page-link" href="/search/?page=<%= nextPage %>"><%= nextPage %></a></li> 
+        <% } %>
+        <% if(lastPage !== currentPage && nextPage !== lastPage){ %>
+            <li class="page-item"><a class="page-link" href="/search/?page=<%= lastPage %>"><%= lastPage %></a></li> 
+        <% } %>
+    </ul>
+    </nav>
+    <% } %>
+</div>
+<%- include('includes/end.ejs') %>

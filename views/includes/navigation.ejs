@@ -1,0 +1,48 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <div class="container">
+    <ul class="navbar-nav">
+      <% if (isAuthenticated){ %>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/' ? 'active' : '' %>" href="/">Trang chủ</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/user' ? 'active' : '' %>" href="/user">Xem/Sửa thông tin cá nhân</a> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/rollcall' ? 'active' : '' %>" href="/rollcall">Điểm danh/Kết thúc làm</a> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/absence' ? 'active' : '' %>" href="/absence">Nghỉ phép</a> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/search' ? 'active' : '' %>" href="/search">Tra cứu</a> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/rollcall-details' ? 'active' : '' %>" href="/rollcall-details">Thông tin điểm danh</a> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/covid' ? 'active' : '' %>" href="/covid">Thông tin Covid cá nhân</a> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/confirm' ? 'active' : '' %>" href="/confirm">Xác nhận dữ liệu giờ làm</a> 
+      </li>
+      <% } %>
+    </ul>
+    <ul class="navbar-nav main-header__item-list">
+      <% if (!isAuthenticated){ %>
+        <li class="nav-item main-header__item">
+          <a class="nav-link <%= path === '/login' ? 'active' : '' %>" class="btn btn-primary" href="/login">Login</a> 
+        </li>
+      <% } else { %>
+      <li class="nav-item main-header__item">
+        <form action="/logout" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

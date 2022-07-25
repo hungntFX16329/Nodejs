@@ -1,0 +1,88 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <h1>Xác nhận dữ liệu giờ làm của nhân viên</h1>
+    <br>
+    <!-- <h3>Danh sách nhân viên mà bạn đang quản lý là:</h3> -->
+    <form action="/confirm" method="GET">
+        <label for="userName">Danh sách nhân viên mà bạn đang quản lý là: </label>
+        <select name="userName">
+            <option><%= user.name %></option>
+            <option>Nguyễn Văn B</option>
+            <option>Nguyễn Văn C</option>
+        </select>
+        <button class="btn btn-outline-dark btn-sm" type="submit">Tìm</button>
+    </form>
+    <form action="/confirm-month" method="GET">
+        <label for="month">Bạn muốn tìm chi tiết giờ làm của nhân viên theo tháng: </label>
+        <select name="month">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
+        <button class="btn btn-outline-dark btn-sm" type="submit">Tìm</button>
+    </form>
+    <br>
+    <% if(mon){ %>
+    <h4><span class="badge bg-secondary">Dữ liệu giờ làm trong tháng <%=mon%> của nhân viên: <%= userName %></span></h4>
+    <% }else{ %>
+        <h4><span class="badge bg-secondary">Dữ liệu giờ làm trong các tháng của nhân viên: <%= userName %></span></h4>
+    <%}%>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Ngày</th>
+                    <th>Nơi làm việc</th>
+                    <th>Giờ bắt đầu</th>
+                    <th>Giờ kết thúc</th>
+                    <th>Thời gian làm việc</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(statistics.length <=0){ %>
+                    <h4>Chưa có dữ liệu để hiển thị</h4>
+                <% }else{ %>
+                    <% statistics.forEach(i => { %>
+                        <% if(i.attend){ %>
+                            <tr>
+                                <td><%= i.date %></td>
+                                <td><%= i.workplace %></td>
+                                <td><%= i.startTime.toLocaleTimeString() %></td>
+                                <% if(i.endTime) { %>
+                                    <td><%= i.endTime.toLocaleTimeString() %></td>
+                                    <td><%= ((i.endTime - i.startTime)/(3600 * 1000)).toFixed(2) %></td>
+                                <% }else { %>
+                                    <td>--</td>
+                                    <td>--</td>
+                                <% } %>
+                            </tr>
+
+                        <% }else { %>
+                            <tr>
+                                <td><%= i.date %></td>
+                                <td>Bạn đã xin nghỉ phép <%= i.days * 8 %> giờ</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <% } %> 
+                    <% }) %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <h5>Tổng thời gian làm thêm: <%= overTime.toFixed(2) %> giờ - Tổng thời gian làm thiếu: <%= underTime.toFixed(2) %> giờ</h5>
+</div>
+<%- include('includes/end.ejs') %>

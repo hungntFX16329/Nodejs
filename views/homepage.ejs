@@ -1,0 +1,29 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+  <%- include('includes/navigation.ejs') %>
+  <div class="container mt-3">
+      <div>
+        <h1><%= user.name %></h1>
+        <img src="<%=user.image%>" class="img-fluid" alt="Beautiful Girl" width="50%" height="50%">
+      </div>
+      <br>
+      <div>
+        <h2><span class="badge bg-secondary">Trạng Thái</span></h2>
+        <% if(!user.isWorking){ %>
+            <span>Không làm việc</span>
+        <% } else { %>
+          <div>
+            <span>Đang làm việc</span>
+          </div>
+        <% } %>
+      </div>
+      <br>
+      <div>
+        <h2><span class="badge bg-secondary">Địa điểm làm việc</span></h2>
+          <span><%= user.workplace %></span>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('includes/end.ejs') %>

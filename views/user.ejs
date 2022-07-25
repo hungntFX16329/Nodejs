@@ -1,0 +1,27 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <div>
+        <div>
+            <h1><%= user.name %></h1>
+            <h6><span class="badge bg-secondary">Mã số cá nhân (ID): <%= user._id %></span></h6>
+            <p>Ngày tháng năm sinh(DOB): <%= user.doB.toLocaleDateString() %></p>
+            <p>Hệ số lương (SalaryScale): <%= user.salaryScale %></p>
+            <% const startDate  = new Date(user.startDate) %>
+            <p>Ngày bắt đầu công việc (Start Date): <%= startDate.getDate() %>/<%= startDate.getMonth() %>/<%= startDate.getFullYear() %></p>
+            <p>Phòng ban (Department): <%= user.department %></p>
+            <p>Nghỉ phép năm (AnnualLeave): <%= user.annualLeave %></p>
+        </div>
+        <div>
+            <div>
+                <img class="img-fluid" width="50%" height="50%" src="/<%= user.image %>" alt="<%= user.name %>"/>
+            </div>
+            <br>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <a href="/edit-user/<%= user._id %>?edit=true" class="btn btn-primary">Chỉnh sửa thông tin</a>
+        </div>
+    </div>
+</div>
+<%- include('includes/end.ejs') %>

@@ -1,0 +1,52 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <div class="container mt-3">
+    <h1>Thông tin điểm danh</h1>
+    <br>
+    <% if(attendance.length <=0){ %>
+        <h3><span class="badge bg-secondary">Hôm nay bạn chưa điểm danh !</span></h3>
+    <% } else{ %>
+    <h3><span class="badge bg-secondary">Ngày bắt đầu công việc: <%= attendance[0].date %></span></h3>
+    <br>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nơi làm việc</th>
+                    <th>Giờ bắt đầu</th>
+                    <th>Giờ kết thúc</th>
+                    <th>Thời gian làm việc</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% attendance.forEach(i => { %>
+                    <tr>
+                        <td><%= i.workplace %></td>
+                        <td><%= i.startTime.toLocaleTimeString() %></td>
+                        <% if(i.endTime) { %>
+                            <td><%= i.endTime.toLocaleTimeString() %></td>
+                            <td><%= ((i.endTime - i.startTime)/(3600 * 1000)).toFixed(2) %></td>
+                        <% }else { %>
+                            <td>--</td>
+                            <td>--</td>
+                        <%} %>
+                    </tr>
+                <% }) %>
+                <% if(attendance[attendance.length-1].endTime){ %>
+                    <tr>
+                        <% const totalTime = attendance.reduce((total, detail) => {return total + ((detail.endTime - detail.startTime))/(3600 *1000)},0) %>
+                        <td>Tổng thời gian làm việc hôm nay là: <%= totalTime.toFixed(2) %> giờ</td>
+                    </tr>
+                <% }else { %>
+                    <tr>
+                        <td>Chưa kết thúc công việc</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <% } %>
+</div>
+<%- include('includes/end.ejs') %>
