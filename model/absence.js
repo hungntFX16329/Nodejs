@@ -30,12 +30,6 @@ absenceSchema.statics.addAbsence = function (
   dates,
   reason
 ) {
-  const today2 = new Date(date);
-  const yyyy2 = today2.getFullYear();
-  let mm2 = today2.getMonth() + 1; // Months start at 0!
-  let dd2 = today2.getDate();
-  let formattedToday2 = dd2 + '/' + mm2 + '/' + yyyy2;
-
   if (type == 1) {
     const dateArr = dates.split(",");
     const newAbsence = [];
@@ -57,7 +51,7 @@ absenceSchema.statics.addAbsence = function (
   } else if (type == 0) {
     const newAbsence = {
       userId: userId,
-      date: formattedToday2,
+      date: new Date(date),
       days: hours / 8,
       reason: reason,
     };
