@@ -46,13 +46,22 @@ const userSchema = new Schema({
 userSchema.methods.getStatus = function(type, workplace) {
     const user = this;
     let currAttendId;
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '/' + mm + '/' + yyyy;
     return Status.findOne({ userId: user._id })
       .then(status => {
         currAttendId = status.attendId;
         if (type === "start") {
           return this.addAttendance(
             currAttendId,
-            new Date().toLocaleDateString(),
+            formattedToday,
             new Date(),
             workplace
           ).then(result => {
