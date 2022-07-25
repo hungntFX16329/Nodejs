@@ -32,14 +32,7 @@ exports.getAbsence = (req, res, next) => {
 //Tạo phương thức khi người dùng ấn nút nghỉ phép
 exports.postAbsence = (req, res, next) => {
   const { type, date, hours, dates, reason } = req.body;
-
-  const today = new Date(date);
-  const yyyy = today.getFullYear();
-  let mm = today.getMonth() + 1; // Months start at 0!
-  let dd = today.getDate();
-  let formattedToday = dd + '/' + mm + '/' + yyyy;
-
-  Absence.addAbsence(req.user._id, type, formattedToday, hours, dates, reason)
+  Absence.addAbsence(req.user._id, type, date, hours, dates, reason)
     .then((result) => {
       let delNum = type == 0 ? result.days : result.length;
       return User.updateOne(
